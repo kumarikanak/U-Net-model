@@ -6,7 +6,7 @@
 
 # for data load
 import os
-
+import random
 # for reading and processing images
 # import imageio
 from PIL import Image
@@ -273,7 +273,8 @@ for file in img:
   image = Image.open(fs.open(file))
   mask_ind = mask[index]
   mask = Image.open(fs.open(mask_ind))
-  image, mask = preprocessing(np.array(image), np.array(mask)[:,:,0])
+ #image, mask = preprocessing(np.array(image), np.array(mask)[:,:,0])
+ image, mask = preprocessing(np.array(image), np.mean(np.array(mask), axis = -1)
   imgs.append(image)
   masks.append(mask)  
 imgs, masks = np.array(imgs), np.array(masks)
