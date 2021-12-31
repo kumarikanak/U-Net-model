@@ -273,7 +273,7 @@ for file in img:
   image = Image.open(fs.open(file))
   mask_ind = mask[index]
   mask = Image.open(fs.open(mask_ind))
-  image, mask = preprocessing(np.array(image), np.array(mask))
+  image, mask = preprocessing(np.array(image), np.array(mask)[:,:,0])
   imgs.append(image)
   masks.append(mask)  
 imgs, masks = np.array(imgs), np.array(masks)
