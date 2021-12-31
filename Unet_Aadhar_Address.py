@@ -258,8 +258,8 @@ def preprocessing(image, mask, size=128, train=True):
     # Random rotation
     if train:
         k=random.choice([0, 1, 2, 3])
-        image = np.rotate90(np.array(image), k=k, axes=(0,1))
-        mask = np.rotate90(np.expand_dims(np.array(mask)), k=k, axes=(0,1))
+        image = np.rot90(np.array(image), k=k, axes=(0,1))
+        mask = np.rot90(np.expand_dims(np.array(mask)), k=k, axes=(0,1))
     else:
         image, mask = np.array(image), np.array(mask)
 
