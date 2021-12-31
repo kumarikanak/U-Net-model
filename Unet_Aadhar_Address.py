@@ -241,26 +241,41 @@ path2 = 's3://kanak-sagemaker/Semantic-Segmentation/Aadhar_left_right_lang_masks
 
 img, mask = LoadData (path1, path2)
 
+
+def preprocessing(image, mask, size=128, train=True):
+
+    mask[mask > 0] = 1
+
+    image = Image.fromarray(image)
+    mask = Image.fromarray(mask)
+
+    # Resize image
+    image.convert('RGB')
+    image = image.resize((size, size))
+    mask.convert('1')
+    mask = mask.resize((size, size))
+
+    # Random rotation
+    if train:
+        k=random.choice([0, 1, 2, 3])
+        image = np.rotate90(np.array(image), k=k, axes=(0,1))
+        mask = np.rotate90(np.expand_dims(np.array(mask)), k=k, axes=(0,1))
+    else:
+        image, mask = np.array(image), np.array(mask)
+
+    return image/256., mask
+
 # Define the desired shape
 imgs, masks = [], []
 #for i in range(len(img)):
 for file in img:
-  # img_path = os.path.join(path1, img[i])
-  # mask_path = os.path.join(path2, mask[i])
   index = img.index(file)
-
-
   image = Image.open(fs.open(file))
   mask_ind = mask[index]
-  mask_new = Image.open(fs.open(mask_ind))
-
-  mask_arr = np.array(mask_new)
-  mask_arr[mask_arr==255] = 1
-  mask_new = Image.fromarray(mask_arr)
-  
-  mask_new.convert('1')
-  imgs.append(np.array(image.resize((128, 128)))/256.)
-  masks.append(np.array(mask_new.resize((128, 128))))
+  mask = Image.open(fs.open(mask_ind))
+  image, mask = preprocessing(np.array(image), np.array(mask))
+  imgs.append(image)
+  masks.append(mask)  
 imgs, masks = np.array(imgs), np.array(masks)
 
 masks = np.expand_dims(masks, axis=-1)
