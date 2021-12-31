@@ -254,7 +254,7 @@ for file in img:
   mask_ind = mask[index]
   mask_new = Image.open(fs.open(mask_ind))
 
-  mask_arr = np.array(mask_new)
+  mask_arr = np.array(mask_new)[:,:,0]
   mask_arr[mask_arr==255] = 1
   mask_new = Image.fromarray(mask_arr)
   
