@@ -272,6 +272,7 @@ for file in img:
   index = img.index(file)
   image = Image.open(fs.open(file))
   mask_ind = mask[index]
+  print(mask_ind)
   mask = Image.open(fs.open(mask_ind))
   image, mask = preprocessing(np.array(image), np.array(mask)[:,:,0])
  #image, mask = preprocessing(np.array(image), np.mean(np.array(mask), axis = -1)
