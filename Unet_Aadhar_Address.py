@@ -259,7 +259,7 @@ def preprocessing(image, mask, size=128, train=True):
     if train:
         k=random.choice([0, 1, 2, 3])
         image = np.rot90(np.array(image), k=k, axes=(0,1))
-        mask = np.rot90(np.expand_dims(np.array(mask)), k=k, axes=(0,1))
+        mask = np.rot90(np.expand_dims(np.array(mask),axis=-1), k=k, axes=(0,1))
     else:
         image, mask = np.array(image), np.array(mask)
 
