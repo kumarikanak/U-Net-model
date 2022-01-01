@@ -239,7 +239,7 @@ path1 = 's3://kanak-sagemaker/Semantic-Segmentation/Aadhar_left_right_lang/'
 path2 = 's3://kanak-sagemaker/Semantic-Segmentation/Aadhar_left_right_lang_masks/'
 
 
-img, mask = LoadData (path1, path2)
+img, msk = LoadData (path1, path2)
 
 
 def preprocessing(image, mask, size=128, train=True):
@@ -275,7 +275,7 @@ for file in img:
   index = img.index(file)
   #print(file)
   image = Image.open(fs.open(file))
-  mask_ind = mask[index]
+  mask_ind = msk[index]
   print(type(mask_ind))
   print(mask_ind)
   mask = Image.open(fs.open(mask_ind))
