@@ -267,8 +267,11 @@ def preprocessing(image, mask, size=128, train=True):
 
 # Define the desired shape
 imgs, masks = [], []
+count = 0
 #for i in range(len(img)):
 for file in img:
+  count = count + 1
+  print(count)
   index = img.index(file)
   #print(file)
   image = Image.open(fs.open(file))
