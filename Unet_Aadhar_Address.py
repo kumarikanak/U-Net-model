@@ -270,9 +270,10 @@ imgs, masks = [], []
 #for i in range(len(img)):
 for file in img:
   index = img.index(file)
-  print(file)
+  #print(file)
   image = Image.open(fs.open(file))
   mask_ind = mask[index]
+  print(type(mask_ind))
   print(mask_ind)
   mask = Image.open(fs.open(mask_ind))
   image, mask = preprocessing(np.array(image), np.array(mask)[:,:,0])
