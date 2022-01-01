@@ -279,10 +279,10 @@ for file in img:
   print(type(mask_ind))
   print(mask_ind)
   mask = Image.open(fs.open(mask_ind))
-  image, mask = preprocessing(np.array(image), np.array(mask)[:,:,0])
+  image_new, mask_new = preprocessing(np.array(image), np.array(mask)[:,:,0])
  #image, mask = preprocessing(np.array(image), np.mean(np.array(mask), axis = -1)
-  imgs.append(image)
-  masks.append(mask)  
+  imgs.append(image_new)
+  masks.append(mask_new)  
 imgs, masks = np.array(imgs), np.array(masks)
 
 masks = np.expand_dims(masks, axis=-1)
