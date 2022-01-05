@@ -27,6 +27,8 @@ from tensorflow.keras.layers import Conv2DTranspose
 from tensorflow.keras.layers import concatenate
 from tensorflow.keras.losses import binary_crossentropy
 from sklearn.model_selection import train_test_split
+
+import matplotlib.pyplot as plt
 import s3fs
 fs = s3fs.S3FileSystem()
 
@@ -262,6 +264,10 @@ for file in img:
   mask_new.convert('1')
   imgs.append(np.array(image.resize((256, 256)))/256.)
   masks.append(np.array(mask_new.resize((256, 256))))
+  plt.subplot(2, 2, 1)
+  plt.imshow(np.array(image.resize((256, 256)))/256.)
+  plt.subplot(2, 2, 2)
+  plt.imshow(np.array(mask_new.resize((256, 256))), cmap = "gray")
 imgs, masks = np.array(imgs), np.array(masks)
 
 masks = np.expand_dims(masks, axis=-1)
