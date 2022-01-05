@@ -175,7 +175,7 @@ def DecoderMiniBlock(prev_layer_input, skip_layer_input, n_filters=32):
                  kernel_initializer='HeNormal')(conv)
     return conv
 
-def UNetCompiled(input_size=(128, 128, 3), n_filters=32, n_classes=2):
+def UNetCompiled(input_size=(256, 256, 3), n_filters=32, n_classes=2):
 #    """
 #    Combine both encoder and decoder blocks according to the U-Net research paper
 #    Return the model as output 
@@ -260,8 +260,8 @@ for file in img:
   mask_new = Image.fromarray(mask_arr)
   
   mask_new.convert('1')
-  imgs.append(np.array(image.resize((128, 128)))/256.)
-  masks.append(np.array(mask_new.resize((128, 128))))
+  imgs.append(np.array(image.resize((256, 256)))/256.)
+  masks.append(np.array(mask_new.resize((256, 256))))
 imgs, masks = np.array(imgs), np.array(masks)
 
 masks = np.expand_dims(masks, axis=-1)
@@ -300,7 +300,7 @@ X_train, X_test, y_train, y_test = train_test_split(imgs, masks, test_size=0.2, 
 # X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=256)
 
 # Call the helper function for defining the layers for the model, given the input image size
-unet = UNetCompiled(input_size=(128,128,3), n_filters=32, n_classes=2)
+unet = UNetCompiled(input_size=(256,256,3), n_filters=32, n_classes=2)
 
 # Check the summary to better interpret how the output dimensions change in each layer
 unet.summary()
